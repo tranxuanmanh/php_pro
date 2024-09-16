@@ -9,4 +9,4 @@ $_SESSION = array();
 
 echo "Bn vua dang xuat";
 ?>
-<a href="./header.php">Quay lai mua hang</a>
+<a href="./trangchu.php">Quay lai trang chu</a>

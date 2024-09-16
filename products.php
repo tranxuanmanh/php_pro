@@ -1,41 +1,36 @@
 <?php
-include("./header.php");
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-}
-$sql = "select * from loaisanpham where MaLoaiSanPham='$id'";
-$query = $conn->query($sql);
-$row = mysqli_fetch_array($query);
 
-$sql2 = "select * from sanpham where BiXoa=0 AND MaLoaiSanPham='$id'";
-
+$sql = "SELECT * FROM sanpham WHERE BiXoa=0";
+global $total_pages;
+$total_pages = 0;
 if (isset($_GET['page'])) {
-    $limit = 5;
+    //Neu ton tai Get['page] thi phan trang
+    //So ban ghi moi trang
+    $limit = 6;
+    //Mac dinh la page 1
     $page = isset($_GET['page']) ? $_GET['page'] : 1;
+    //Bat dau
     $start = ($page - 1) * $limit;
-
-    $result3 = $conn->query("SELECT COUNT(*) AS total FROM sanpham WHERE BiXoa=0 AND MaLoaiSanPham='$id'");
+    //Tong so ban ghi
+    $result3 = $conn->query("SELECT COUNT(*) AS total FROM sanpham WHERE BiXoa=0");
+    //Chuyen sang kieu array key->value
     $row3 = $result3->fetch_assoc();
-    $total_records = $row3['total']; //Lay tong so ban ghi
+    //Lay 'total' se duoc tong so ban ghi tra ve
+    $total_records = $row3['total'];
     // Tính tổng số trang
     $total_pages = ceil($total_records / $limit); //Lam tron len
-
-    $sql2 .= " LIMIT $start, $limit";
+    //Noi chuoi vao sql ban dau
+    $sql .= " LIMIT $start, $limit";
 }
-echo $sql2;
-$query2 = $conn->query($sql2);
+// echo $sql;
+$query = $conn->query($sql);
 ?>
-<div class="row">
-    <div class="col-12 bg-success bg-opacity-25 m-2 p-2 text-center">
-        Danh muc -> <?php echo $row['TenLoaiSanPham'] ?>
-    </div>
-</div>
 
 <section style="background-color: #eee;">
 
     <div class="row p-2 gy-2 mt-2">
         <?php
-        while ($row2 = mysqli_fetch_array($query2)) {
+        while ($row = mysqli_fetch_array($query)) {
         ?>
         <div class="col-md-3 col-lg-3 mb-2 mb-lg-0">
 
@@ -48,26 +43,26 @@ $query2 = $conn->query($sql2);
                     </div>
 
                 </div>
-                <img src="./Images/<?= $row2["HinhURL"] ?>" class="card-img-top" alt="Laptop"
+                <img src="./Images/<?= $row["HinhURL"] ?>" class="card-img-top" alt="Laptop"
                     style="width:100%;height:130px" />
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <p class="small"><a href="" class="text-muted">Laptop</a></p>
-                        <p class="text-dark mb-0">Số lượng: <?= $row2["SoLuong"] ?></h5>
+                        <p class="text-dark mb-0">Số lượng: <?= $row["SoLuong"] ?></h5>
                     </div>
 
                     <div class="d-flex justify-content-between mb-3">
-                        <h6 class="mb-0"><?= $row2["TenSanPham"] ?></h5>
+                        <h6 class="mb-0"><?= $row["TenSanPham"] ?></h5>
 
                     </div>
                     <div class="d-flex justify-content-between mb-3">
                         <h6 class="mb-0">Giá bán</h6>
-                        <p class="mb-0 fw-bold text-danger"><?= number_format($row2["GiaSanPham"], 0, '.', '.')  ?> VNĐ
+                        <p class="mb-0 fw-bold text-danger"><?= number_format($row["GiaSanPham"], 0, '.', '.')  ?> VNĐ
                         </p>
                     </div>
                     <div class="d-flex justify-content-between mb-3">
                         <p class="mb-0">Số lượt mua</h5>
-                        <p class="text-dark mb-0"><?= $row2["SoLuongDaBan"] ?>
+                        <p class="text-dark mb-0"><?= $row["SoLuongDaBan"] ?>
                         </p>
                     </div>
                     <div class="d-flex justify-content-between mb-3">
@@ -92,6 +87,10 @@ $query2 = $conn->query($sql2);
 
     </div>
 </section>
+<?php
+//Lam tron len
+
+?>
 <div class="row">
     <div class="col-12">
 
@@ -109,7 +108,3 @@ $query2 = $conn->query($sql2);
         </ul>
     </div>
 </div>
-<?php
-include("./footer.php");
-
-?>

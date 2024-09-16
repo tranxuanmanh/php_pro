@@ -2,7 +2,7 @@
 include('header.php');
 if (isset($_SESSION['username'])) {
     echo 'Bạn đã đăng nhập rồi.';
-    echo '<a href="./header.php">Click để quay về trang chủ</a>';
+    echo '<a href="./trangchu.php">Click để quay về trang chủ</a>';
 } else {
     $username = "";
     $password = "";
@@ -16,20 +16,19 @@ if (isset($_SESSION['username'])) {
         $sql = "SELECT TenDangNhap, MatKhau,Quyen FROM taikhoan WHERE TenDangNhap='$username' AND MatKhau='$password'";
         $query = $conn->query($sql);
         $row = mysqli_fetch_array($query);
-        $admin = $row["Quyen"];
+
         if ($query && $query->num_rows > 0) {
+            $admin = $row["Quyen"];
             if ($admin == "1") {
                 $_SESSION['username'] = $username;
-
                 echo "Dang nhap thanh cong";
                 echo '<a href="./testAdmin.php">Sang trang Admin</a>';
-
                 exit;
             }
             $_SESSION['username'] = $username;
             $_SESSION['pass'] = $password;
             echo "Dang nhap thanh cong";
-            echo '<a href="./header.php">Tiep tuc mua hang</a>';
+            echo '<a href="./trangchu.php">Tiep tuc mua hang</a>';
             exit;
         } else {
             echo "<script type='text/javascript'>alert('Sai tài khoản hoặc mật khẩu');</script>";

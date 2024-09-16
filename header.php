@@ -93,16 +93,16 @@ include("connect.php");
         <nav class="navbar navbar-expand-lg">
             <div class="col-lg-4">
                 <div class="w-100 ms-5">
-                    <a class="" href="/">
+                    <a class="" href="./header.php">
                         <img src="./logo2.png" alt="">
                     </a>
                 </div>
 
             </div>
             <div class="col-lg-6">
-                <form class="d-flex">
-                    <input class="form-control me-2 w-50" type="search" placeholder="Search">
-                    <input class="btn btn-outline-success" type="submit" value="Tim kiem"></input>
+                <form class="d-flex" method="GET" action="./timkiemsp.php">
+                    <input class="form-control me-2 w-50" type="search" name="searchSP" placeholder="Tim kiem san pham">
+                    <input class="btn btn-outline-success" type="submit" name="btnSearch" value="Tim kiem"></input>
                 </form>
             </div>
             <div class="col-lg-2">
@@ -132,42 +132,40 @@ include("connect.php");
                         </a>
                         <ul class="dropdown-menu">
                             <?php
-                            $sql = "select * from loaisanpham";
+                            //Select danh muc san pham 
+                            $sql = "select * from loaisanpham where BiXoa=0";
                             $query = $conn->query($sql);
                             if ($query) {
                                 while ($row = mysqli_fetch_array($query)) {
-
                                     echo
                                     "<li class='dropdown-item my-2 item w-100'>
-                                    <a href='./danhmuc.php?id=" . $row['MaLoaiSanPham'] . "' class='text-decoration-none p-1 w-100 d-block'>" . $row['TenLoaiSanPham'] . "</a>
+                                    <a href='./danhmuc.php?id=" . $row['MaLoaiSanPham'] . "&page=1' class='text-decoration-none p-1 w-100 d-block'>" . $row['TenLoaiSanPham'] . "</a>
                                     </li>";
                                 }
                             }
 
                             ?>
-
-
                         </ul>
                     <li class="nav-item">
-                        <a class="nav-link text-primary btn btn-warning p-2 fs-6" href="./danhmuc.php?id=2">The nho</a>
+                        <a class="nav-link text-primary btn btn-warning p-2 fs-6" href="./trangchu.php?page=1">Trang
+                            chu</a>
                     </li>
-                    <li class=" nav-item">
-                        <a class="nav-link btn btn-warning bg-opacity-25 p-2 fs-6" href="./danhmuc.php?id=3">Usb</a>
-                    </li>
+                    <?php
+                    $query2 = $conn->query($sql);
+                    while ($row2 = mysqli_fetch_array($query2)) {
+                    ?>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-warning bg-opacity-25 p-2 fs-6" href="./danhmuc.php?id=7">Phu
-                            kien</a>
+                        <a class="nav-link text-primary btn btn-warning p-2 fs-6"
+                            href="./danhmuc.php?id=<?= $row2['MaLoaiSanPham'] ?>&page=1">
+                            <?= $row2['TenLoaiSanPham'] ?>
+                        </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-warning bg-opacity-25 p-2 fs-6" href="./danhmuc.php?id=4">Ram</a>
-                    </li>
+                    <?php
+                    }
+                    ?>
+
+
                 </ul>
             </div>
         </nav>
     </div>
-
-
-    <?php
-    include("./footer.php");
-
-    ?>
