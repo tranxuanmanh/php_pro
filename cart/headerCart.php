@@ -1,6 +1,7 @@
 <?php
 session_start();
-include("connect.php");
+include("../connect.php");
+error_reporting(E_ERROR | E_PARSE);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +20,7 @@ include("connect.php");
 </head>
 
 <body>
-    <div class="container-fluid" style="position:relative">
+    <div class="container-fluid">
         <div class="row">
             <nav class="navbar navbar-expand-lg bg-info bg-opacity-25">
                 <div class="col-lg-8 p-3">Thoi gian mo cua tu 8h den 22h</div>
@@ -42,24 +43,24 @@ include("connect.php");
                                     if ($_SESSION["username"] == "admin") {
                                     ?>
                                 <li>
-                                    <a class="dropdown-item text-succes" href="./testAdmin.php">Chuyển đến Admin</a>
+                                    <a class="dropdown-item text-succes" href="../testAdmin.php">Chuyển đến Admin</a>
                                 </li>
                                 <?php
                                     }
 
                                     ?>
                                 <li>
-                                    <a class="dropdown-item text-succes" href="./dangxuat.php"
+                                    <a class="dropdown-item text-succes" href="../dangxuat.php"
                                         onclick="return confirm('Ban co chac chan khong??')">Đăng xuất</a>
                                 </li>
                                 <?php
                                 } else {
                                 ?>
                                 <li>
-                                    <a class="dropdown-item text-warning text-center" href="./dangnhap.php">Đăng nhập
+                                    <a class="dropdown-item text-warning text-center" href="../dangnhap.php">Đăng nhập
                                     </a>
                                 </li>
-                                <li><a class="dropdown-item text-success text-center" href="./dangki.php">Đăng kí</a>
+                                <li><a class="dropdown-item text-success text-center" href="../dangki.php">Đăng kí</a>
                                 </li>
                                 <?php
                                 }
@@ -94,19 +95,19 @@ include("connect.php");
             <div class="col-lg-4">
                 <div class="w-100 ms-5">
                     <a class="" href="./header.php">
-                        <img src="./logo2.png" alt="">
+                        <img src="../logo2.png" alt="">
                     </a>
                 </div>
 
             </div>
             <div class="col-lg-6">
-                <form class="d-flex" method="GET" action="./timkiemsp.php">
+                <form class="d-flex" method="GET" action="../timkiemsp.php">
                     <input class="form-control me-2 w-50" type="search" name="searchSP" placeholder="Tim kiem san pham">
                     <input class="btn btn-outline-success" type="submit" name="btnSearch" value="Tim kiem"></input>
                 </form>
             </div>
             <div class="col-lg-2">
-                <a href="/" class="btn btn-primary position-relative">
+                <a href="../cart/showCart.php" class="btn btn-primary position-relative">
                     Giỏ hàng
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -116,7 +117,7 @@ include("connect.php");
                         </svg>
                     </span>
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                    <?php 
+                        <?php 
                         if(isset($_SESSION['count'])&&!empty($_SESSION['cart'])){
                             echo $_SESSION['count'];
                         }else{
@@ -129,7 +130,7 @@ include("connect.php");
             </div>
         </nav>
     </div>
-    <div class="row " >
+    <div class="row">
         <nav class="navbar navbar-expand-lg ">
             <div class="col-8 p-3 mx-auto bg-secondary bg-opacity-50 rounded-top">
                 <ul class="navbar-nav ">
@@ -146,7 +147,7 @@ include("connect.php");
                                 while ($row = mysqli_fetch_array($query)) {
                                     echo
                                     "<li class='dropdown-item my-2 item w-100'>
-                                    <a href='./danhmuc.php?id=" . $row['MaLoaiSanPham'] . "&page=1' class='text-decoration-none p-1 w-100 d-block'>" . $row['TenLoaiSanPham'] . "</a>
+                                    <a href='../danhmuc.php?id=" . $row['MaLoaiSanPham'] . "&page=1' class='text-decoration-none p-1 w-100 d-block'>" . $row['TenLoaiSanPham'] . "</a>
                                     </li>";
                                 }
                             }
@@ -154,7 +155,7 @@ include("connect.php");
                             ?>
                         </ul>
                     <li class="nav-item">
-                        <a class="nav-link text-primary btn btn-warning p-2 fs-6" href="./trangchu.php?page=1">Trang
+                        <a class="nav-link text-primary btn btn-warning p-2 fs-6" href="../trangchu.php?page=1">Trang
                             chu</a>
                     </li>
                     <?php
@@ -163,7 +164,7 @@ include("connect.php");
                     ?>
                     <li class="nav-item">
                         <a class="nav-link text-primary btn btn-warning p-2 fs-6"
-                            href="./danhmuc.php?id=<?= $row2['MaLoaiSanPham'] ?>&page=1">
+                            href="../danhmuc.php?id=<?= $row2['MaLoaiSanPham'] ?>&page=1">
                             <?= $row2['TenLoaiSanPham'] ?>
                         </a>
                     </li>

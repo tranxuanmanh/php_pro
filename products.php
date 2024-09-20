@@ -68,8 +68,8 @@ $query = $conn->query($sql);
                     <div class="d-flex justify-content-between mb-3">
 
                         <p class="text-dark mb-0">
-                            <a href="/" class="btn btn-info " style="text-decoration: none;">Xem chi tiết</a>
-                            <a href="/" class="btn btn-success " style="text-decoration: none;">Thêm vào giỏ hàng</a>
+                            <a href="./chitietsp.php?id=<?= $row['MaSanPham']?>" class="btn btn-info " style="text-decoration: none;">Xem chi tiết</a>
+                            <a href="?id=<?= $row['MaSanPham']?>" class="btn btn-success theA" style="text-decoration: none;">Thêm vào giỏ hàng</a>
                         </p>
                     </div>
                 </div>
@@ -87,10 +87,8 @@ $query = $conn->query($sql);
 
     </div>
 </section>
-<?php
-//Lam tron len
 
-?>
+
 <div class="row">
     <div class="col-12">
 

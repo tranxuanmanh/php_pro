@@ -10,3 +10,4 @@ if (isset($_SESSION["username"])) {
 
 
 <h1>Dang xuat <a href="./dangxuat.php">Dang xuat</a></h1>
+
